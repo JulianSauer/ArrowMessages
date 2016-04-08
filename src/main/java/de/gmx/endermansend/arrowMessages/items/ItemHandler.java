@@ -3,7 +3,7 @@ package de.gmx.endermansend.arrowMessages.items;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemHandler {
@@ -17,10 +17,9 @@ public class ItemHandler {
         meta.setDisplayName("Arrow Message");
         arrow.setItemMeta(meta);
 
-        ShapedRecipe recipe = new ShapedRecipe(arrow);
-        recipe.shape("A ", " B");
-        recipe.setIngredient('A', Material.ARROW);
-        recipe.setIngredient('B', Material.WRITTEN_BOOK);
+        ShapelessRecipe recipe = new ShapelessRecipe(arrow);
+        recipe.addIngredient(Material.ARROW);
+        recipe.addIngredient(Material.WRITTEN_BOOK);
         Bukkit.addRecipe(recipe);
     }
 
