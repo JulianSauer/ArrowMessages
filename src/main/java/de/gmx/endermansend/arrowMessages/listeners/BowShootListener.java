@@ -12,19 +12,15 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
 
 public class BowShootListener implements Listener {
 
     private ArrowMessages main;
     private ItemHandler itemHandler;
 
-    private ItemMeta referenceArrowMeta;
-
     public BowShootListener(ArrowMessages main) {
         this.main = main;
         this.itemHandler = main.getItemHandler();
-        this.referenceArrowMeta = itemHandler.getReferenceArrowMeta();
     }
 
     @EventHandler
@@ -34,10 +30,11 @@ public class BowShootListener implements Listener {
         if (livingEntity instanceof Player) {
             Player player = (Player) livingEntity;
 
-            ItemStack shotArrow = getShotArrow(player);
+            ItemMeta arrowMeta = getShotArrow(player).getItemMeta();
 
-            if(shotArrow.getItemMeta().equals(referenceArrowMeta)) {
-                e.getProjectile().setMetadata("Arrow Message", new FixedMetadataValue(main, "A very important message should be written here.."));
+            if(!arrowMeta.getLore().isEmpty()) {
+                e.getProjectile().setMetadata("Title", new FixedMetadataValue(main, arrowMeta.getDisplayName()));
+                e.getProjectile().setMetadata("Message", new FixedMetadataValue(main, arrowMeta.getLore()));
             }
 
         }

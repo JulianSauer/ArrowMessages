@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.metadata.MetadataValue;
 
 import java.util.ArrayList;
@@ -24,18 +25,39 @@ public class EntityDamageByEntityListener implements Listener {
             return;
 
         Arrow arrow = (Arrow) entity;
-        List<MetadataValue> metaValues = arrow.getMetadata("Arrow Message");
-        List<String> message = new ArrayList<String>();
-        for (MetadataValue metaValue : metaValues) {
-            message.add(metaValue.asString());
-        }
+        String title = getTitle(arrow);
+
+        String message = getMessage(arrow);
 
         Player target = (Player) e.getEntity();
 
-        ItemStack messageBook = new ItemStack(Material.WRITTEN_BOOK);
-        messageBook.getItemMeta().setLore(message);
-        target.getInventory().addItem(messageBook, new ItemStack(Material.ARROW));
+        ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
+        BookMeta bookContent = (BookMeta) book.getItemMeta();
+        bookContent.setTitle(title);
+        bookContent.addPage(message);
+        bookContent.setAuthor("Unknown");
+        book.setItemMeta(bookContent);
 
+        target.getInventory().addItem(book, new ItemStack(Material.ARROW));
+
+    }
+
+    private String getTitle(Arrow arrow) {
+        List<MetadataValue> titleData = arrow.getMetadata("Title");
+        String title = "";
+
+        for (MetadataValue metaValue : titleData)
+            title += metaValue.asString();
+        return title;
+    }
+
+    private String getMessage(Arrow arrow) {
+        List<MetadataValue> messageData = arrow.getMetadata("Message");
+        String message = "";
+
+        for (MetadataValue metaValue : messageData)
+            message += metaValue.asString();
+        return message;
     }
 
 }

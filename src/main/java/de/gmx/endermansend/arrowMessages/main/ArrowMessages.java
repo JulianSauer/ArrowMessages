@@ -2,6 +2,7 @@ package de.gmx.endermansend.arrowMessages.main;
 
 import de.gmx.endermansend.arrowMessages.items.ItemHandler;
 import de.gmx.endermansend.arrowMessages.listeners.BowShootListener;
+import de.gmx.endermansend.arrowMessages.listeners.CraftItemListener;
 import de.gmx.endermansend.arrowMessages.listeners.EntityDamageByEntityListener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,6 +20,7 @@ public class ArrowMessages extends JavaPlugin {
         PluginManager manager = getServer().getPluginManager();
         manager.registerEvents(new BowShootListener(this), this);
         manager.registerEvents(new EntityDamageByEntityListener(), this);
+        manager.registerEvents(new CraftItemListener(this), this);
 
         getLogger().info("Enabled");
 

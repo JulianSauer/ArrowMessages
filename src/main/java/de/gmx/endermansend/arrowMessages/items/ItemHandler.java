@@ -4,19 +4,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemHandler {
 
     private ItemStack referenceArrow;
 
-    private ItemMeta referenceArrowMeta;
-
     public ItemHandler() {
         referenceArrow = new ItemStack(Material.ARROW);
-        referenceArrowMeta = referenceArrow.getItemMeta();
-        referenceArrowMeta.setDisplayName("Arrow Message");
-        referenceArrow.setItemMeta(referenceArrowMeta);
     }
 
     /**
@@ -32,10 +26,6 @@ public class ItemHandler {
 
     public ItemStack getReferenceArrow() {
         return referenceArrow;
-    }
-
-    public ItemMeta getReferenceArrowMeta() {
-        return referenceArrowMeta;
     }
 
 }
