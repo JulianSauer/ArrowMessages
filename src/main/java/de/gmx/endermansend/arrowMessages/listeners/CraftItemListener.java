@@ -9,12 +9,17 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CraftItemListener implements Listener {
 
     private ItemStack referenceArrow;
+    private String pageEndTag;
 
     public CraftItemListener(ArrowMessages main) {
         this.referenceArrow = main.getItemHandler().getReferenceArrow();
+        this.pageEndTag = main.getPageEndTag();
     }
 
     @EventHandler
@@ -32,8 +37,12 @@ public class CraftItemListener implements Listener {
                 BookMeta bookContent = (BookMeta) ingredient.getItemMeta();
                 ItemStack result = e.getRecipe().getResult();
 
+                List<String> lore = new ArrayList<String>();
+                for(String page : bookContent.getPages())
+                    lore.add(page + pageEndTag);
+
                 ItemMeta arrowMeta = result.getItemMeta();
-                arrowMeta.setLore(bookContent.getPages());
+                arrowMeta.setLore(lore);
                 arrowMeta.setDisplayName(bookContent.getTitle());
                 result.setItemMeta(arrowMeta);
                 craftingInventory.setResult(result);

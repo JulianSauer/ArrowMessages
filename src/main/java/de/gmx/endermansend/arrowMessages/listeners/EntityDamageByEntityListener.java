@@ -1,5 +1,6 @@
 package de.gmx.endermansend.arrowMessages.listeners;
 
+import de.gmx.endermansend.arrowMessages.main.ArrowMessages;
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -16,6 +17,12 @@ import java.util.List;
 
 public class EntityDamageByEntityListener implements Listener {
 
+    private String pageEndTag;
+
+    public EntityDamageByEntityListener(ArrowMessages main) {
+        this.pageEndTag = main.getPageEndTag();
+    }
+
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
 
@@ -26,15 +33,17 @@ public class EntityDamageByEntityListener implements Listener {
 
         Arrow arrow = (Arrow) entity;
         String title = getTitle(arrow);
+        List<String> message = getMessage(arrow);
 
-        String message = getMessage(arrow);
+        if (message == null)
+            return;
 
         Player target = (Player) e.getEntity();
 
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta bookContent = (BookMeta) book.getItemMeta();
         bookContent.setTitle(title);
-        bookContent.addPage(message);
+        bookContent.setPages(message);
         bookContent.setAuthor("Unknown");
         book.setItemMeta(bookContent);
 
@@ -51,12 +60,28 @@ public class EntityDamageByEntityListener implements Listener {
         return title;
     }
 
-    private String getMessage(Arrow arrow) {
+    private List<String> getMessage(Arrow arrow) {
         List<MetadataValue> messageData = arrow.getMetadata("Message");
-        String message = "";
+        if (messageData == null)
+            return null;
+        else if (messageData.isEmpty())
+            return null;
 
-        for (MetadataValue metaValue : messageData)
-            message += metaValue.asString();
+        String unformattedMessage = "";
+        for (MetadataValue metaValue : messageData) {
+            unformattedMessage += metaValue.asString();
+        }
+
+        List<String> message = new ArrayList<String>();
+        for (String page : unformattedMessage.split(pageEndTag)) {
+            if (page.startsWith(", ") && page.length() > 2)
+                message.add(page.substring(2));
+            else if (!page.equals("]")) // Removes "]"
+                message.add(page);
+        }
+
+        message.set(0, message.get(0).substring(1)); // Removes "["
+
         return message;
     }
 

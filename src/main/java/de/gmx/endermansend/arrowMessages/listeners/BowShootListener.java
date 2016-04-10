@@ -13,6 +13,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 
+import java.util.List;
+
 public class BowShootListener implements Listener {
 
     private ArrowMessages main;
@@ -32,7 +34,7 @@ public class BowShootListener implements Listener {
 
             ItemMeta arrowMeta = getShotArrow(player).getItemMeta();
 
-            if(!arrowMeta.getLore().isEmpty()) {
+            if (isArrowMessage(arrowMeta)) {
                 e.getProjectile().setMetadata("Title", new FixedMetadataValue(main, arrowMeta.getDisplayName()));
                 e.getProjectile().setMetadata("Message", new FixedMetadataValue(main, arrowMeta.getLore()));
             }
@@ -48,12 +50,27 @@ public class BowShootListener implements Listener {
 
         for (int i = 0; i < inventory.getSize(); i++) {
             arrow = inventory.getItem(i);
-            if(arrow.getType().equals(Material.ARROW)) {
+            if (arrow == null)
+                continue;
+            else if (arrow.getType().equals(Material.ARROW)) {
                 return arrow;
             }
         }
 
         return null;
+    }
+
+    private boolean isArrowMessage(ItemMeta arrowMeta) {
+        List<String> lore = arrowMeta.getLore();
+        if(lore == null)
+            return false;
+        if(lore.isEmpty())
+            return false;
+        for(String s : lore) {
+            if(!s.equals(""))
+                return true;
+        }
+        return false;
     }
 
 }

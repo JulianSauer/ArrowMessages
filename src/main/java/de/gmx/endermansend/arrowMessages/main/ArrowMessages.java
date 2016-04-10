@@ -4,22 +4,25 @@ import de.gmx.endermansend.arrowMessages.items.ItemHandler;
 import de.gmx.endermansend.arrowMessages.listeners.BowShootListener;
 import de.gmx.endermansend.arrowMessages.listeners.CraftItemListener;
 import de.gmx.endermansend.arrowMessages.listeners.EntityDamageByEntityListener;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ArrowMessages extends JavaPlugin {
 
     ItemHandler itemHandler;
+    private String pageEndTag;
 
     @Override
     public void onEnable() {
 
         itemHandler = new ItemHandler();
         itemHandler.setUpArrowMessageItem();
+        pageEndTag = ChatColor.GOLD + "";
 
         PluginManager manager = getServer().getPluginManager();
         manager.registerEvents(new BowShootListener(this), this);
-        manager.registerEvents(new EntityDamageByEntityListener(), this);
+        manager.registerEvents(new EntityDamageByEntityListener(this), this);
         manager.registerEvents(new CraftItemListener(this), this);
 
         getLogger().info("Enabled");
@@ -33,6 +36,10 @@ public class ArrowMessages extends JavaPlugin {
 
     public ItemHandler getItemHandler() {
         return itemHandler;
+    }
+
+    public String getPageEndTag() {
+        return pageEndTag;
     }
 
 }
