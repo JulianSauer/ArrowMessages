@@ -39,7 +39,7 @@ public class CraftItemListener implements Listener {
 
                 List<String> lore = new ArrayList<String>();
                 for(String page : bookContent.getPages())
-                    lore.add(page + pageEndTag);
+                    lore.add(page.replace("\n", "") + pageEndTag);
 
                 ItemMeta arrowMeta = result.getItemMeta();
                 arrowMeta.setLore(lore);
