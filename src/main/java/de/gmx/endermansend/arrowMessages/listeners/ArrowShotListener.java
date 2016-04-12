@@ -20,12 +20,12 @@ public abstract class ArrowShotListener implements Listener {
         this.pageEndTag = main.getPageEndTag();
     }
 
-    protected void giveItemsToPlayer(Player player, Arrow arrow) {
+    protected boolean giveItemsToPlayer(Player player, Arrow arrow) {
         String title = getTitle(arrow);
         List<String> message = getMessage(arrow);
 
         if (message == null)
-            return;
+            return false;
 
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta bookContent = (BookMeta) book.getItemMeta();
@@ -34,7 +34,8 @@ public abstract class ArrowShotListener implements Listener {
         bookContent.setAuthor("Unknown");
         book.setItemMeta(bookContent);
 
-        player.getInventory().addItem(book, new ItemStack(Material.ARROW));
+        player.getInventory().addItem(book);
+        return true;
     }
 
     protected String getTitle(Arrow arrow) {
