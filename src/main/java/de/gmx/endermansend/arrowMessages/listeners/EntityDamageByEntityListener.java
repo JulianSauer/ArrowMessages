@@ -26,7 +26,7 @@ public class EntityDamageByEntityListener extends ArrowShotListener {
         Arrow arrow = (Arrow) entity;
         Player target = (Player) e.getEntity();
 
-        if(giveItemsToPlayer(target, arrow))
+        if (giveItemsToPlayer(target, arrow))
             target.getInventory().addItem(new ItemStack(Material.ARROW));
 
     }

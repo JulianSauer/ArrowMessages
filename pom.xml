@@ -6,7 +6,7 @@
 
     <groupId>de.gmx.endermansend.arrowMessages</groupId>
     <artifactId>ArrowMessages</artifactId>
-    <version>0.3</version>
+    <version>0.8</version>
 
     <repositories>
         <repository>
@@ -16,7 +16,6 @@
     </repositories>
 
     <dependencies>
-        <!--Spigot API-->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>

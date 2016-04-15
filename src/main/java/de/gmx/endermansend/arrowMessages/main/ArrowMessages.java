@@ -4,7 +4,6 @@ import de.gmx.endermansend.arrowMessages.config.ConfigHandler;
 import de.gmx.endermansend.arrowMessages.items.ItemHandler;
 import de.gmx.endermansend.arrowMessages.listeners.*;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 

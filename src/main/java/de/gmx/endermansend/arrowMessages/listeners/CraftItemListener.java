@@ -25,20 +25,20 @@ public class CraftItemListener implements Listener {
     @EventHandler
     public void onCraftItem(CraftItemEvent e) {
 
-        if(!isCorrectRecipe(e))
+        if (!isCorrectRecipe(e))
             return;
 
         CraftingInventory craftingInventory = e.getInventory();
 
         ItemStack[] ingredients = craftingInventory.getMatrix();
-        for(ItemStack ingredient : ingredients) {
+        for (ItemStack ingredient : ingredients) {
             if (ingredient.getItemMeta() instanceof BookMeta) {
 
                 BookMeta bookContent = (BookMeta) ingredient.getItemMeta();
                 ItemStack result = e.getRecipe().getResult();
 
                 List<String> lore = new ArrayList<String>();
-                for(String page : bookContent.getPages())
+                for (String page : bookContent.getPages())
                     lore.add(page.replace("\n", "") + pageEndTag);
 
                 ItemMeta arrowMeta = result.getItemMeta();
@@ -55,7 +55,7 @@ public class CraftItemListener implements Listener {
 
     private boolean isCorrectRecipe(CraftItemEvent e) {
         ItemStack result = e.getRecipe().getResult();
-        return result.equals(referenceArrow) && e.getInventory() instanceof  CraftingInventory;
+        return result.equals(referenceArrow) && e.getInventory() instanceof CraftingInventory;
     }
 
 }
