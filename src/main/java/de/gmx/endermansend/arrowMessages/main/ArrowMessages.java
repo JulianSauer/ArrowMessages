@@ -1,10 +1,7 @@
 package de.gmx.endermansend.arrowMessages.main;
 
 import de.gmx.endermansend.arrowMessages.items.ItemHandler;
-import de.gmx.endermansend.arrowMessages.listeners.BowShootListener;
-import de.gmx.endermansend.arrowMessages.listeners.CraftItemListener;
-import de.gmx.endermansend.arrowMessages.listeners.EntityDamageByEntityListener;
-import de.gmx.endermansend.arrowMessages.listeners.PlayerPickupArrowListener;
+import de.gmx.endermansend.arrowMessages.listeners.*;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,6 +23,7 @@ public class ArrowMessages extends JavaPlugin {
         manager.registerEvents(new BowShootListener(this), this);
         manager.registerEvents(new EntityDamageByEntityListener(this), this);
         manager.registerEvents(new PlayerPickupArrowListener(this), this);
+        manager.registerEvents(new ProjectileHitListener(), this);
 
         getLogger().info("Enabled");
 
