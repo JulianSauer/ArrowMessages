@@ -32,7 +32,10 @@ public class BowShootListener implements Listener {
         if (livingEntity instanceof Player) {
             Player player = (Player) livingEntity;
 
-            ItemMeta arrowMeta = getShotArrow(player).getItemMeta();
+            ItemStack arrow = getShotArrow(player);
+            if (arrow == null)
+                return;
+            ItemMeta arrowMeta = arrow.getItemMeta();
 
             if (isArrowMessage(arrowMeta)) {
                 e.getProjectile().setMetadata("Title", new FixedMetadataValue(main, arrowMeta.getDisplayName()));
