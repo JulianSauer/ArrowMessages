@@ -1,10 +1,13 @@
 package de.gmx.endermansend.arrowMessages.listeners;
 
 import de.gmx.endermansend.arrowMessages.main.ArrowMessages;
+import org.bukkit.ChatColor;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.inventory.CraftingInventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -39,11 +42,15 @@ public class CraftItemListener implements Listener {
 
                 List<String> lore = new ArrayList<String>();
                 for (String page : bookContent.getPages())
-                    lore.add(page.replace("\n", "") + pageEndTag);
+                    lore.add(ChatColor.stripColor(page.replace("\n", "")) + pageEndTag);
 
                 ItemMeta arrowMeta = result.getItemMeta();
+
+                arrowMeta.addEnchant(Enchantment.ARROW_INFINITE, 0, true);
+                arrowMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                 arrowMeta.setLore(lore);
-                arrowMeta.setDisplayName(bookContent.getTitle());
+                arrowMeta.setDisplayName(ChatColor.WHITE + bookContent.getTitle());
+
                 result.setItemMeta(arrowMeta);
                 craftingInventory.setResult(result);
 
