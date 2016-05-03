@@ -2,5 +2,7 @@
 titleColor: WHITE
 # Color for the lore of message arrows
 loreColor: WHITE
+# Name of the author that the person receiving the message will see.
+authorPseudonym: Unknown
 # Shot arrows will have spectral glowing if set to true
 spectralGlowing: false

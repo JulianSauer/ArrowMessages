@@ -34,6 +34,10 @@ public class GetValuesFromConfig {
         return ChatColor.WHITE;
     }
 
+    public String authorPseudonym() {
+        return config.getStringFromConfig("authorPseudonym");
+    }
+
     public boolean spectralGlowing() {
         return config.getBooleanFromConfig("spectralGlowing");
     }

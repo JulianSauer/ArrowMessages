@@ -17,10 +17,13 @@ public abstract class ArrowShotListener implements Listener {
 
     protected String pageEndTag;
     protected String lineEndTag;
+    private String authorPseudonym;
 
     public ArrowShotListener() {
-        this.pageEndTag = ArrowMessages.getInstance().getPageEndTag();
-        this.lineEndTag = ArrowMessages.getInstance().getLineEndTag();
+        ArrowMessages main = ArrowMessages.getInstance();
+        this.pageEndTag = main.getPageEndTag();
+        this.lineEndTag = main.getLineEndTag();
+        this.authorPseudonym = main.getConfigHandler().get.authorPseudonym();
     }
 
     protected boolean giveItemsToPlayer(Player player, Arrow arrow) {
@@ -34,7 +37,7 @@ public abstract class ArrowShotListener implements Listener {
         BookMeta bookContent = (BookMeta) book.getItemMeta();
         bookContent.setTitle(title);
         bookContent.setPages(message);
-        bookContent.setAuthor("Unknown");
+        bookContent.setAuthor(authorPseudonym);
         book.setItemMeta(bookContent);
 
         player.getInventory().addItem(book);
