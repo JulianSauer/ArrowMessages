@@ -35,7 +35,7 @@ public class ArrowMessages extends JavaPlugin {
         lineEndTag = ChatColor.DARK_PURPLE + " " + loreColor;
 
         PluginManager manager = getServer().getPluginManager();
-        manager.registerEvents(new CraftItemListener(), this);
+        manager.registerEvents(new PrepareItemCraftListener(), this);
         manager.registerEvents(new BowShootListener(), this);
         manager.registerEvents(new EntityDamageByEntityListener(), this);
         manager.registerEvents(new PlayerPickupArrowListener(), this);

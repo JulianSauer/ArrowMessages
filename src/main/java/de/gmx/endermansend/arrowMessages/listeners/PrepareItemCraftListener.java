@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -15,7 +15,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CraftItemListener implements Listener {
+public class PrepareItemCraftListener implements Listener {
+
 
     private ItemStack referenceArrow;
 
@@ -24,7 +25,7 @@ public class CraftItemListener implements Listener {
     private String pageEndTag;
     private String lineEndTag;
 
-    public CraftItemListener() {
+    public PrepareItemCraftListener() {
         ArrowMessages main = ArrowMessages.getInstance();
         this.referenceArrow = main.getItemHandler().getReferenceArrow();
         this.titleColor = main.getTitleColor();
@@ -34,7 +35,10 @@ public class CraftItemListener implements Listener {
     }
 
     @EventHandler
-    public void onCraftItem(CraftItemEvent e) {
+    public void onPrepareItemCraft(PrepareItemCraftEvent e) {
+
+        if (!(e.getInventory() instanceof CraftingInventory))
+            return;
 
         if (!isCorrectRecipe(e))
             return;
@@ -68,7 +72,7 @@ public class CraftItemListener implements Listener {
 
     }
 
-    private boolean isCorrectRecipe(CraftItemEvent e) {
+    private boolean isCorrectRecipe(PrepareItemCraftEvent e) {
         ItemStack result = e.getRecipe().getResult();
         return result.equals(referenceArrow) && e.getInventory() instanceof CraftingInventory;
     }
