@@ -19,10 +19,12 @@ public class CraftItemListener implements Listener {
 
     private ItemStack referenceArrow;
     private String pageEndTag;
+    private String lineEndTag;
 
-    public CraftItemListener(ArrowMessages main) {
-        this.referenceArrow = main.getItemHandler().getReferenceArrow();
-        this.pageEndTag = main.getPageEndTag();
+    public CraftItemListener() {
+        this.referenceArrow = ArrowMessages.getInstance().getItemHandler().getReferenceArrow();
+        this.pageEndTag = ArrowMessages.getInstance().getPageEndTag();
+        this.lineEndTag = ArrowMessages.getInstance().getLineEndTag();
     }
 
     @EventHandler
@@ -42,7 +44,7 @@ public class CraftItemListener implements Listener {
 
                 List<String> lore = new ArrayList<String>();
                 for (String page : bookContent.getPages())
-                    lore.add(ChatColor.stripColor(page.replace("\n", "")) + pageEndTag);
+                    lore.add(ChatColor.RESET + ChatColor.stripColor(page).replace("\n", lineEndTag) + pageEndTag);
 
                 ItemMeta arrowMeta = result.getItemMeta();
 

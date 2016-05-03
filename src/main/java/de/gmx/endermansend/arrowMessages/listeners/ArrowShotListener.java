@@ -15,9 +15,11 @@ import java.util.List;
 public abstract class ArrowShotListener implements Listener {
 
     protected String pageEndTag;
+    protected String lineEndTag;
 
-    public ArrowShotListener(ArrowMessages main) {
-        this.pageEndTag = main.getPageEndTag();
+    public ArrowShotListener() {
+        this.pageEndTag = ArrowMessages.getInstance().getPageEndTag();
+        this.lineEndTag = ArrowMessages.getInstance().getLineEndTag();
     }
 
     protected boolean giveItemsToPlayer(Player player, Arrow arrow) {
@@ -62,9 +64,9 @@ public abstract class ArrowShotListener implements Listener {
         List<String> message = new ArrayList<String>();
         for (String page : unformattedMessage.split(pageEndTag)) {
             if (page.startsWith(", ") && page.length() > 2)
-                message.add(page.substring(2));
+                message.add(page.substring(2).replace(lineEndTag, "\n"));
             else if (!page.equals("]")) // Removes "]"
-                message.add(page);
+                message.add(page.replace(lineEndTag, "\n"));
         }
 
         message.set(0, message.get(0).substring(1)); // Removes "["

@@ -19,9 +19,9 @@ public class ConfigHandler {
     private Logger logger;
     private FileConfiguration config;
 
-    public ConfigHandler(ArrowMessages main) {
+    public ConfigHandler() {
 
-        this.main = main;
+        main = ArrowMessages.getInstance();
         this.logger = this.main.getLogger();
 
         if (!loadConfig())

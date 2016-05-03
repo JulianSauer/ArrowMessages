@@ -8,8 +8,8 @@ import org.bukkit.event.player.PlayerPickupArrowEvent;
 
 public class PlayerPickupArrowListener extends ArrowShotListener {
 
-    public PlayerPickupArrowListener(ArrowMessages main) {
-        super(main);
+    public PlayerPickupArrowListener() {
+        super();
     }
 
     @EventHandler

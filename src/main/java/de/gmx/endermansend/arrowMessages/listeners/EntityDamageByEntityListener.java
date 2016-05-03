@@ -11,8 +11,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class EntityDamageByEntityListener extends ArrowShotListener {
 
-    public EntityDamageByEntityListener(ArrowMessages main) {
-        super(main);
+    public EntityDamageByEntityListener() {
+        super();
     }
 
     @EventHandler

@@ -17,12 +17,10 @@ import java.util.List;
 
 public class BowShootListener implements Listener {
 
-    private ArrowMessages main;
     private ItemHandler itemHandler;
 
-    public BowShootListener(ArrowMessages main) {
-        this.main = main;
-        this.itemHandler = main.getItemHandler();
+    public BowShootListener() {
+        this.itemHandler = ArrowMessages.getInstance().getItemHandler();
     }
 
     @EventHandler
@@ -38,8 +36,8 @@ public class BowShootListener implements Listener {
             ItemMeta arrowMeta = arrow.getItemMeta();
 
             if (isArrowMessage(arrowMeta)) {
-                e.getProjectile().setMetadata("Title", new FixedMetadataValue(main, arrowMeta.getDisplayName()));
-                e.getProjectile().setMetadata("Message", new FixedMetadataValue(main, arrowMeta.getLore()));
+                e.getProjectile().setMetadata("Title", new FixedMetadataValue(ArrowMessages.getInstance(), arrowMeta.getDisplayName()));
+                e.getProjectile().setMetadata("Message", new FixedMetadataValue(ArrowMessages.getInstance(), arrowMeta.getLore()));
             }
 
         }

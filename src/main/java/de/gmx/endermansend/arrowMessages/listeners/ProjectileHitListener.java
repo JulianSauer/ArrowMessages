@@ -14,13 +14,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class ProjectileHitListener implements Listener {
 
-    private ArrowMessages main;
-
     private boolean spectralGlowing;
 
-    public ProjectileHitListener(ArrowMessages main) {
-        this.main = main;
-        this.spectralGlowing = main.getConfigHandler().get.spectralGlowing();
+    public ProjectileHitListener() {
+        this.spectralGlowing = ArrowMessages.getInstance().getConfigHandler().get.spectralGlowing();
     }
 
     @EventHandler
@@ -40,7 +37,7 @@ public class ProjectileHitListener implements Listener {
         world.spawnParticle(Particle.SPELL_WITCH, location, 30);
         world.playSound(location, Sound.ENTITY_ARROW_HIT, 1.5f, 1);
 
-        (new ParticleEffects(projectile, world)).runTaskTimer(main, 0L, 2L);
+        (new ParticleEffects(projectile, world)).runTaskTimer(ArrowMessages.getInstance(), 0L, 2L);
 
     }
 
