@@ -1,1 +1,6 @@
+# Color for the title of message arrows
+titleColor: WHITE
+# Color for the lore of message arrows
+loreColor: WHITE
+# Shot arrows will have spectral glowing if set to true
 spectralGlowing: false

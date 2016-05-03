@@ -18,13 +18,19 @@ import java.util.List;
 public class CraftItemListener implements Listener {
 
     private ItemStack referenceArrow;
+
+    private ChatColor titleColor;
+    private ChatColor loreColor;
     private String pageEndTag;
     private String lineEndTag;
 
     public CraftItemListener() {
-        this.referenceArrow = ArrowMessages.getInstance().getItemHandler().getReferenceArrow();
-        this.pageEndTag = ArrowMessages.getInstance().getPageEndTag();
-        this.lineEndTag = ArrowMessages.getInstance().getLineEndTag();
+        ArrowMessages main = ArrowMessages.getInstance();
+        this.referenceArrow = main.getItemHandler().getReferenceArrow();
+        this.titleColor = main.getTitleColor();
+        this.loreColor = main.getLoreColor();
+        this.pageEndTag = main.getPageEndTag();
+        this.lineEndTag = main.getLineEndTag();
     }
 
     @EventHandler
@@ -44,14 +50,14 @@ public class CraftItemListener implements Listener {
 
                 List<String> lore = new ArrayList<String>();
                 for (String page : bookContent.getPages())
-                    lore.add(ChatColor.RESET + ChatColor.stripColor(page).replace("\n", lineEndTag) + pageEndTag);
+                    lore.add(loreColor + ChatColor.stripColor(page).replace("\n", lineEndTag) + pageEndTag);
 
                 ItemMeta arrowMeta = result.getItemMeta();
 
                 arrowMeta.addEnchant(Enchantment.ARROW_INFINITE, 0, true);
                 arrowMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                 arrowMeta.setLore(lore);
-                arrowMeta.setDisplayName(ChatColor.WHITE + bookContent.getTitle());
+                arrowMeta.setDisplayName(titleColor + ChatColor.stripColor(bookContent.getTitle()));
 
                 result.setItemMeta(arrowMeta);
                 craftingInventory.setResult(result);

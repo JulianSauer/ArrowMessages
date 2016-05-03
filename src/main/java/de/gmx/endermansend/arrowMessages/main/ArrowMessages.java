@@ -14,6 +14,8 @@ public class ArrowMessages extends JavaPlugin {
     private ItemHandler itemHandler;
     private ConfigHandler config;
 
+    private ChatColor titleColor;
+    private ChatColor loreColor;
     private String pageEndTag;
     private String lineEndTag;
 
@@ -27,8 +29,10 @@ public class ArrowMessages extends JavaPlugin {
 
         config = new ConfigHandler();
 
-        pageEndTag = ChatColor.GOLD + "" + ChatColor.RESET;
-        lineEndTag = ChatColor.DARK_PURPLE + " " + ChatColor.RESET;
+        titleColor = config.get.titleColor();
+        loreColor = config.get.loreColor();
+        pageEndTag = ChatColor.GOLD + "" + loreColor;
+        lineEndTag = ChatColor.DARK_PURPLE + " " + loreColor;
 
         PluginManager manager = getServer().getPluginManager();
         manager.registerEvents(new CraftItemListener(), this);
@@ -52,6 +56,14 @@ public class ArrowMessages extends JavaPlugin {
 
     public ItemHandler getItemHandler() {
         return itemHandler;
+    }
+
+    public ChatColor getTitleColor() {
+        return titleColor;
+    }
+
+    public ChatColor getLoreColor() {
+        return loreColor;
     }
 
     public String getPageEndTag() {

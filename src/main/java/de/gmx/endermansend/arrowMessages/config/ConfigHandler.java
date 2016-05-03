@@ -16,7 +16,7 @@ public class ConfigHandler {
     public GetValuesFromConfig get;
 
     private ArrowMessages main;
-    private Logger logger;
+    protected Logger logger;
     private FileConfiguration config;
 
     public ConfigHandler() {
@@ -51,6 +51,19 @@ public class ConfigHandler {
         if (!config.isSet(path) || !config.isBoolean(path))
             noValueFound(path);
         return config.getBoolean(path);
+    }
+
+    /**
+     * Tries to convert the value found under the given path to a String. If it cannot be found in config.yml, an error
+     * message will be printed and a default one will be used.
+     *
+     * @param path Path to the variable
+     * @return Value found in config.yml (default value if none is found)
+     */
+    protected String getStringFromConfig(String path) {
+        if (!config.isSet(path) || !config.isString(path))
+            noValueFound(path);
+        return config.getString(path);
     }
 
     /**

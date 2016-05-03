@@ -1,6 +1,7 @@
 package de.gmx.endermansend.arrowMessages.listeners;
 
 import de.gmx.endermansend.arrowMessages.main.ArrowMessages;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -46,7 +47,7 @@ public abstract class ArrowShotListener implements Listener {
 
         for (MetadataValue metaValue : titleData)
             title += metaValue.asString();
-        return title;
+        return ChatColor.WHITE + ChatColor.stripColor(title);
     }
 
     protected List<String> getMessage(Arrow arrow) {
@@ -64,12 +65,12 @@ public abstract class ArrowShotListener implements Listener {
         List<String> message = new ArrayList<String>();
         for (String page : unformattedMessage.split(pageEndTag)) {
             if (page.startsWith(", ") && page.length() > 2)
-                message.add(page.substring(2).replace(lineEndTag, "\n"));
+                message.add(ChatColor.BLACK + ChatColor.stripColor(page.substring(2).replace(lineEndTag, "\n")));
             else if (!page.equals("]")) // Removes "]"
-                message.add(page.replace(lineEndTag, "\n"));
+                message.add(ChatColor.BLACK + ChatColor.stripColor(page.replace(lineEndTag, "\n")));
         }
 
-        message.set(0, message.get(0).substring(1)); // Removes "["
+        message.set(0, message.get(0).substring(3)); // Removes "°0["
 
         return message;
     }
