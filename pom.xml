@@ -6,7 +6,7 @@
 
     <groupId>de.gmx.endermansend.arrowMessages</groupId>
     <artifactId>ArrowMessages</artifactId>
-    <version>1.0</version>
+    <version>1.11.2</version>
 
     <repositories>
         <repository>
